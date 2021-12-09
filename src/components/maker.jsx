@@ -13,9 +13,6 @@ const Maker = ({ authService }) => {
       company: 'Kakao',
       title: 'FrontEnd',
       message: 'Hi',
-      theme: 'light',
-      fileName: 'file',
-      fileURL: null,
     },
     {
       id: '2',
@@ -23,9 +20,6 @@ const Maker = ({ authService }) => {
       company: 'Kakao',
       title: 'FrontEnd',
       message: 'Hi',
-      theme: 'dark',
-      fileName: 'file',
-      fileURL: null,
     },
     {
       id: '3',
@@ -33,9 +27,6 @@ const Maker = ({ authService }) => {
       company: 'Kakao',
       title: 'FrontEnd',
       message: 'Hi',
-      theme: 'colorful',
-      fileName: 'file',
-      fileURL: null,
     },
   ]);
 
@@ -51,11 +42,17 @@ const Maker = ({ authService }) => {
         }
       });
   });
+
+  const addCard = (card) => {
+    const updated = [...cards, card];
+    setCards(updated);
+  };
+
   return (
     <section>
       <Header onLogOut={onLogOut} />
-      <div className="container">
-        <Editor cards={cards} />
+      <div>
+        <Editor cards={cards} addCard={addCard} />
         <Preview cards={cards} />
       </div>
     </section>

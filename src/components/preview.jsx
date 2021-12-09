@@ -6,7 +6,7 @@ const Preview = ({ cards }) => (
     <h1>Card Preview</h1>
     <ul>
       {cards.map((card) => (
-        <Card card={card} />
+        <Card key={card.id} card={card} />
       ))}
     </ul>
   </section>
