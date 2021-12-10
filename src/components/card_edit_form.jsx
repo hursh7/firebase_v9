@@ -8,7 +8,7 @@ const CardEditForm = ({ FileInput, card, updateCard, deleteCard }) => {
   const titleRef = useRef();
   const emailRef = useRef();
 
-  const { name, company, title, email } = card;
+  const { name, company, title, email, fileName } = card;
 
   const onSubmit = () => {
     deleteCard(card);
@@ -61,7 +61,7 @@ const CardEditForm = ({ FileInput, card, updateCard, deleteCard }) => {
         value={email}
         onChange={onChange}
       />
-      <FileInput name={name} onFileChange={onFileChange} />
+      <FileInput name={fileName} onFileChange={onFileChange} />
       <Button name="Delete" onClick={onSubmit} />
     </form>
   );
