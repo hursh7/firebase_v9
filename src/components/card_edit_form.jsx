@@ -1,16 +1,59 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ImageFileInput from './image_file_input';
 import Button from './button';
 
-const CardEditForm = ({ card }) => {
+const CardEditForm = ({ card, updateCard, deleteCard }) => {
+  const formRef = useRef();
+  const nameRef = useRef();
+  const companyRef = useRef();
+  const titleRef = useRef();
+  const emailRef = useRef();
+
   const { name, company, title, email } = card;
-  const onSubmit = () => {};
+
+  const onSubmit = () => {
+    deleteCard(card);
+  };
+  const onChange = (event) => {
+    if (event.currenTarget === null) {
+      return;
+    }
+    event.preventDefault();
+    updateCard({
+      ...card,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
   return (
-    <form>
-      <input type="text" name="name" defaultValue={name} />
-      <input type="text" name="company" defaultValue={company} />
-      <input type="text" name="title" defaultValue={title} />
-      <input type="text" name="email" defaultValue={email} />
+    <form ref={formRef}>
+      <input
+        ref={nameRef}
+        type="text"
+        name="name"
+        value={name}
+        onChange={onChange}
+      />
+      <input
+        ref={companyRef}
+        type="text"
+        name="company"
+        value={company}
+        onChange={onChange}
+      />
+      <input
+        ref={titleRef}
+        type="text"
+        name="title"
+        value={title}
+        onChange={onChange}
+      />
+      <input
+        ref={emailRef}
+        type="text"
+        name="email"
+        value={email}
+        onChange={onChange}
+      />
       <ImageFileInput />
       <Button name="Delete" onClick={onSubmit} />
     </form>

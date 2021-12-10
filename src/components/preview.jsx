@@ -5,8 +5,8 @@ const Preview = ({ cards }) => (
   <section>
     <h1>Card Preview</h1>
     <ul>
-      {cards.map((card) => (
-        <Card key={card.id} card={card} />
+      {Object.keys(cards).map((key) => (
+        <Card key={key} card={cards[key]} />
       ))}
     </ul>
   </section>
