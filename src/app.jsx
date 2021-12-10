@@ -6,14 +6,17 @@ import Login from './components/login';
 import Maker from './components/maker';
 import './app.css';
 
-function App({ authService }) {
+function App({ FileInput, authService }) {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login authService={authService} />} />
-          <Route path="/maker" element={<Maker authService={authService} />} />
+          <Route
+            path="/maker"
+            element={<Maker FileInput={FileInput} authService={authService} />}
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

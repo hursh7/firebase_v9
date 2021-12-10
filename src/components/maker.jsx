@@ -4,7 +4,7 @@ import Header from './header';
 import Editor from './editor';
 import Preview from './preview';
 
-const Maker = ({ authService }) => {
+const Maker = ({ FileInput, authService }) => {
   const navigate = useNavigate();
   const [cards, setCards] = useState({
     1: {
@@ -64,6 +64,7 @@ const Maker = ({ authService }) => {
       <Header onLogOut={onLogOut} />
       <div>
         <Editor
+          FileInput={FileInput}
           cards={cards}
           addCard={createOrUpdateCard}
           createOrUpdateCard={createOrUpdateCard}
