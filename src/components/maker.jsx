@@ -1,46 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import Header from './header';
 import Editor from './editor';
 import Preview from './preview';
 
-const Maker = ({ FileInput, authService }) => {
+const Maker = ({ FileInput, authService, cardRepository }) => {
+  const location = useLocation();
+  const locationState = location?.state;
   const navigate = useNavigate();
-  const [cards, setCards] = useState({
-    1: {
-      id: '1',
-      name: 'JUN',
-      company: 'Kakao',
-      title: 'FrontEnd',
-      message: 'Hi',
-    },
-    2: {
-      id: '2',
-      name: 'JUN',
-      company: 'Kakao',
-      title: 'FrontEnd',
-      message: 'Hi',
-    },
-    3: {
-      id: '3',
-      name: 'JUN',
-      company: 'Kakao',
-      title: 'FrontEnd',
-      message: 'Hi',
-    },
-  });
+  const [cards, setCards] = useState({});
+  const [userId, setUserId] = useState(locationState && locationState.id);
 
   const onLogOut = () => {
     authService.logout();
   };
 
   useEffect(() => {
-    authService //
-      .onAuthChange((user) => {
-        if (!user) {
-          navigate('/');
-        }
-      });
+    if (!userId) {
+      return;
+    }
+    const stopSync = cardRepository.syncCards(userId, (cards) => {
+      setCards(cards);
+    });
+    return () => stopSync();
+  }, [userId]);
+
+  useEffect(() => {
+    authService.onAuthChange((user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        navigate('/');
+      }
+    });
   });
 
   const createOrUpdateCard = (card) => {
@@ -49,6 +41,7 @@ const Maker = ({ FileInput, authService }) => {
       updated[card.id] = card;
       return updated;
     });
+    cardRepository.saveCard(userId, card);
   };
 
   const deleteCard = (card) => {
@@ -57,6 +50,7 @@ const Maker = ({ FileInput, authService }) => {
       delete updated[card.id];
       return updated;
     });
+    cardRepository.removeCard(userId, card);
   };
 
   return (

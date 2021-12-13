@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app';
 import styled from 'styled-components';
+import { firebaseApp } from './service/firebase';
 import AuthService from './service/auth_service';
 import ImageUploader from './service/image_uploader';
-import { firebaseApp } from './service/firebase';
+import CardRepository from './service/card_repository';
 import ImageFileInput from './components/image_file_input';
 
 const authService = new AuthService(firebaseApp);
+const cardRepository = new CardRepository(firebaseApp);
 const imageUploader = new ImageUploader();
 const FileInput = (props) => (
   <ImageFileInput {...props} imageUploader={imageUploader} />
@@ -17,7 +19,12 @@ const FileInput = (props) => (
 
 ReactDOM.render(
   <React.StrictMode>
-    <App authService={authService} styled={styled} FileInput={FileInput} />
+    <App
+      authService={authService}
+      styled={styled}
+      FileInput={FileInput}
+      cardRepository={cardRepository}
+    />
   </React.StrictMode>,
   document.getElementById('root'),
 );
