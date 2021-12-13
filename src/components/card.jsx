@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
-
 const S = {
   Div: styled.div`
     width: 500px;
@@ -14,7 +13,7 @@ const S = {
 };
 
 const DEFAULT_IMAGES = '/images/default_profile.svg';
-const Card = ({ card }) => {
+const Card = memo(({ card }) => {
   const { name, company, title, email, message, fileURL } = card;
   const url = fileURL || DEFAULT_IMAGES;
   return (
@@ -29,6 +28,6 @@ const Card = ({ card }) => {
       </div>
     </li>
   );
-};
+});
 
 export default Card;

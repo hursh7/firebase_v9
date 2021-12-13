@@ -1,14 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import Button from './button';
 
-const CardAddForm = ({ FileInput, onAdd }) => {
+const CardAddForm = memo(({ FileInput, onAdd }) => {
   const formRef = useRef();
   const nameRef = useRef();
   const companyRef = useRef();
   const titleRef = useRef();
   const emailRef = useRef();
   const [file, setFile] = useState({ fileName: null, fileURL: null });
-
   const onFileChange = (file) => {
     console.log(file);
     setFile({
@@ -49,6 +48,6 @@ const CardAddForm = ({ FileInput, onAdd }) => {
       <Button name="Add" onClick={onSubmit} />
     </form>
   );
-};
+});
 
 export default CardAddForm;

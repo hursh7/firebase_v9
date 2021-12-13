@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const loadingSpin = keyframes` 
@@ -23,8 +23,7 @@ const S = {
       loadingSpin.active && `animation: ${loadingSpin} 2s linear infinite;`}
   `,
 };
-
-const ImageFileInput = ({ imageUploader, name, onFileChange }) => {
+const ImageFileInput = memo(({ imageUploader, name, onFileChange }) => {
   const [loading, setLoading] = useState(null);
   const inputRef = useRef();
 
@@ -56,6 +55,6 @@ const ImageFileInput = ({ imageUploader, name, onFileChange }) => {
       {true && <S.Loading></S.Loading>}
     </div>
   );
-};
+});
 
 export default ImageFileInput;

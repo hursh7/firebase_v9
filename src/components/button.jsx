@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-const Button = ({ name, onClick }) => <button onClick={onClick}>{name}</button>;
-
+const Button = memo(({ name, onClick }) => (
+  <button onClick={onClick}>{name}</button>
+));
 export default Button;
